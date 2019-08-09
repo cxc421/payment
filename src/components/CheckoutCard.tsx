@@ -64,11 +64,19 @@ interface CheckoutCardState {
   payWays: PayWay[]
 }
 
-export class CheckoutCard extends React.PureComponent<{}, CheckoutCardState> {
+interface CheckoutCardProps {
+  onSubmit: () => void
+  onError: () => void
+}
+
+export class CheckoutCard extends React.PureComponent<
+  CheckoutCardProps,
+  CheckoutCardState
+> {
   state: CheckoutCardState = {
     payWays: [
       {
-        checked: true,
+        checked: false,
         payText: "Pay in a lump sum",
         priceText: "$15,960",
       },
@@ -94,6 +102,19 @@ export class CheckoutCard extends React.PureComponent<{}, CheckoutCardState> {
     }))
   }
 
+  onClickPayButton = () => {
+    let checkoutNum = 0
+    this.state.payWays.forEach(payWay => {
+      if (payWay.checked) checkoutNum++
+    })
+
+    if (checkoutNum === 1) {
+      this.props.onSubmit()
+    } else {
+      this.props.onError()
+    }
+  }
+
   render() {
     return (
       <Wrapper>
@@ -111,7 +132,7 @@ export class CheckoutCard extends React.PureComponent<{}, CheckoutCardState> {
           ))}
         </PayWayArea>
         <PayButtonArea>
-          <PayButton>Pay</PayButton>
+          <PayButton onClick={this.onClickPayButton}>Pay</PayButton>
         </PayButtonArea>
       </Wrapper>
     )

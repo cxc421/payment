@@ -23,6 +23,7 @@ const Wrapper = styled.div<Checked>`
 const Label = styled.label`
   display: flex;
   align-items: center;
+  cursor: pointer;
 
   img {
     margin-right: 40px;
