@@ -109,8 +109,15 @@ export const InfoDialog: React.FC<InfoDialogProps> = ({
         />
       </Dialog>
       <Img
-        haveError={haveError}
-        src={haveError ? errorImgSrc : successImgSrc}
+        style={{ display: `${haveError ? "block" : "none"}` }}
+        haveError={true}
+        src={errorImgSrc}
+        alt="Dialog Image"
+      />
+      <Img
+        style={{ display: `${haveError ? "none" : "block"}` }}
+        haveError={false}
+        src={successImgSrc}
         alt="Dialog Image"
       />
     </Wrapper>
