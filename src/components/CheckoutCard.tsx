@@ -54,19 +54,66 @@ const PayButton = styled.div`
     opacity: 0.8;
   }
 `
+type PayWay = {
+  checked: boolean
+  payText: string
+  priceText: string
+}
 
-export const CheckoutCard = () => (
-  <Wrapper>
-    <TopRow>
-      <SelectBox />
-    </TopRow>
-    <Slider />
-    <PayWayArea>
-      <PayRow></PayRow>
-      <PayRow></PayRow>
-    </PayWayArea>
-    <PayButtonArea>
-      <PayButton>Pay</PayButton>
-    </PayButtonArea>
-  </Wrapper>
-)
+interface CheckoutCardState {
+  payWays: PayWay[]
+}
+
+export class CheckoutCard extends React.PureComponent<{}, CheckoutCardState> {
+  state: CheckoutCardState = {
+    payWays: [
+      {
+        checked: true,
+        payText: "Pay in a lump sum",
+        priceText: "$15,960",
+      },
+      {
+        checked: false,
+        payText: "Pay in installments",
+        priceText: "$2,660 x 6",
+      },
+    ],
+  }
+
+  onPayWayCheckBoxChange = (index: number) => {
+    this.setState(({ payWays }) => ({
+      payWays: payWays.map((payWay, payWayIndex) => {
+        if (index === payWayIndex) {
+          return {
+            ...payWay,
+            checked: !payWay.checked,
+          }
+        }
+        return payWay
+      }),
+    }))
+  }
+
+  render() {
+    return (
+      <Wrapper>
+        <TopRow>
+          <SelectBox />
+        </TopRow>
+        <Slider />
+        <PayWayArea>
+          {this.state.payWays.map((payWay, index) => (
+            <PayRow
+              key={index}
+              {...payWay}
+              onChange={() => this.onPayWayCheckBoxChange(index)}
+            />
+          ))}
+        </PayWayArea>
+        <PayButtonArea>
+          <PayButton>Pay</PayButton>
+        </PayButtonArea>
+      </Wrapper>
+    )
+  }
+}
