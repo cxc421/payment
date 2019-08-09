@@ -27,6 +27,7 @@ const IconTitle = styled.h1`
   color: white;
   font-weight: bold;
   margin-left: 40px;
+  line-height: 59px;
 `
 
 const CancelBtn = styled.div`
