@@ -4,6 +4,7 @@ import cardSrc_1 from "../assets/credit_card_blue.svg"
 import cardSrc_2 from "../assets/credit_card_yellow.svg"
 import cardSrc_3 from "../assets/credit_card_red.svg"
 import { SliderCard } from "./SliderCard"
+import { mobileSize } from "../constants/device"
 
 const cardData = [
   {
@@ -25,6 +26,9 @@ const Wrapper = styled.div`
   width: 100%;
   /* background: lightgray; */
   position: relative;
+  @media (max-width: ${mobileSize}) {
+    margin-top: 59px;
+  }
 `
 
 const CardArea = styled.div`
@@ -38,6 +42,9 @@ const PontArea = styled.div`
   margin-top: 25px;
   display: flex;
   justify-content: center;
+  @media (max-width: ${mobileSize}) {
+    margin-top: 20px;
+  }
 `
 
 type PointProp = { filled?: boolean }

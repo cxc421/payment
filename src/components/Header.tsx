@@ -2,6 +2,7 @@ import React from "react"
 import styled from "styled-components"
 import { Container } from "./Container"
 import iconMoneySrc from "../assets/icon_Money.svg"
+import { mobileSize } from "../constants/device"
 
 const Wrapper = styled.div`
   color: white;
@@ -12,6 +13,11 @@ const HeaderContainer = styled(Container)`
   padding-top: 40px;
   padding-bottom: 40px;
   justify-content: space-between;
+
+  @media screen and (max-width: ${mobileSize}) {
+    padding-top: 20px;
+    padding-bottom: 14px;
+  }
 `
 
 const IconBlock = styled.div`
@@ -21,6 +27,10 @@ const IconBlock = styled.div`
 
 const IconMoney = styled.img`
   height: 30px;
+
+  @media (max-width: ${mobileSize}) {
+    height: 25px;
+  }
 `
 
 const IconTitle = styled.h1`
@@ -28,6 +38,14 @@ const IconTitle = styled.h1`
   font-weight: bold;
   margin-left: 40px;
   line-height: 59px;
+  font-size: 40px;
+  line-height: 59px;
+
+  @media (max-width: ${mobileSize}) {
+    font-size: 24px;
+    line-height: 36px;
+    margin-left: 15px;
+  }
 `
 
 const CancelBtn = styled.div`

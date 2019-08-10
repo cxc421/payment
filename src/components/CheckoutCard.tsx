@@ -3,6 +3,7 @@ import styled from "styled-components"
 import { SelectBox } from "./SelectBox"
 import { Slider } from "./Slider"
 import { PayRow } from "./PayRow"
+import { mobileSize } from "../constants/device"
 
 const Wrapper = styled.div`
   border-radius: 30px 30px 0 0;
@@ -13,12 +14,21 @@ const Wrapper = styled.div`
   width: 747px;
   min-height: calc(100vh - 160px);
   overflow-x: hidden;
+
+  @media (max-width: ${mobileSize}) {
+    top: 192px;
+    width: 100%;
+    min-height: calc(100vh - 70px - 192px);
+  }
 `
 
 const TopRow = styled.div`
   margin-top: 40px;
   display: flex;
   justify-content: center;
+  @media (max-width: ${mobileSize}) {
+    margin-top: 20px;
+  }
 `
 
 const PayWayArea = styled.div`
@@ -30,11 +40,17 @@ const PayWayArea = styled.div`
       margin-bottom: 0;
     }
   }
+  @media (max-width: ${mobileSize}) {
+    margin-top: 20px;
+  }
 `
 
 const PayButtonArea = styled.div`
   margin-top: 40px;
   text-align: center;
+  @media (max-width: ${mobileSize}) {
+    margin-top: 15px;
+  }
 `
 
 const PayButton = styled.div`
@@ -52,6 +68,12 @@ const PayButton = styled.div`
   cursor: pointer;
   &:hover {
     opacity: 0.8;
+  }
+
+  @media (max-width: ${mobileSize}) {
+    width: 60px;
+    height: 45px;
+    font-size: 16px;
   }
 `
 type PayWay = {

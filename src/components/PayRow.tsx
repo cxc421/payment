@@ -2,6 +2,7 @@ import styled from "styled-components"
 import React, { memo } from "react"
 import checkIconSrc from "../assets/icon_Check.svg"
 import unCheckedIconSrc from "../assets/icon_Check-1.svg"
+import { mobileSize } from "../constants/device"
 
 type Checked = { checked: boolean }
 
@@ -18,6 +19,10 @@ const Wrapper = styled.div<Checked>`
       props.checked ? "rgba(22, 47, 232, 1)" : "rgba(22, 47, 232, 0.3)"};
     font-size: 12px;
   }
+
+  @media (max-width: ${mobileSize}) {
+    padding: 0 20px;
+  }
 `
 
 const Label = styled.label`
@@ -27,6 +32,9 @@ const Label = styled.label`
 
   img {
     margin-right: 40px;
+    @media (max-width: ${mobileSize}) {
+      margin-right: 20px;
+    }
   }
 `
 

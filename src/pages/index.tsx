@@ -6,16 +6,24 @@ import { Container } from "../components/Container"
 import { ProductCard } from "../components/ProductCard"
 import { CheckoutCard } from "../components/CheckoutCard"
 import { InfoMask } from "../components/InfoMask"
+import { mobileSize } from "../constants/device"
 
 const Content = styled.div`
   position: relative;
   margin-top: 21px;
   /* height: calc(100% - 160px); */
+  @media (max-width: ${mobileSize}) {
+    margin-top: 0;
+  }
 `
 
-const ContentContainer = styled(Container)`
+const ContentContainer = styled.div`
   position: relative;
-  /* height: 100%; */
+  width: 100%;
+  @media (max-width: ${mobileSize}) {
+    position: absolute;
+    left: 0;
+  }
 `
 
 export default () => {
@@ -40,10 +48,12 @@ export default () => {
     <>
       <Header></Header>
       <Content>
-        <ContentContainer>
-          <ProductCard />
-          <CheckoutCard onSubmit={onSubmit} onError={onError} />
-        </ContentContainer>
+        <Container>
+          <ContentContainer>
+            <ProductCard />
+            <CheckoutCard onSubmit={onSubmit} onError={onError} />
+          </ContentContainer>
+        </Container>
       </Content>
       <InfoMask show={showMask} onClose={hideMask} haveError={haveError} />
     </>
