@@ -46,10 +46,10 @@ const PayWayArea = styled.div`
 `
 
 const PayButtonArea = styled.div`
-  margin-top: 40px;
+  margin: 40px 0;
   text-align: center;
   @media (max-width: ${mobileSize}) {
-    margin-top: 15px;
+    margin: 15px 0;
   }
 `
 
