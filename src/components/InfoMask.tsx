@@ -1,6 +1,7 @@
 import React, { memo } from "react"
 import styled from "styled-components"
 import { InfoDialog } from "./InfoDialog"
+import { mobileSize } from "../constants/device"
 
 type HaveError = { haveError: boolean }
 
@@ -14,6 +15,10 @@ const Mask = styled.div<HaveError>`
   background: ${props =>
     props.haveError ? "rgba(0, 0, 0, 0.7)" : "rgba(22, 47, 232, 0.7)"};
   transition: all 0.3s;
+
+  @media (max-width: ${mobileSize}) {
+    height: 100vh;
+  }
 `
 
 interface InfoMaskProps extends HaveError {

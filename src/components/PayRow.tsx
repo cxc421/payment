@@ -6,13 +6,14 @@ import { mobileSize } from "../constants/device"
 
 type Checked = { checked: boolean }
 
-const Wrapper = styled.div<Checked>`
+const Wrapper = styled.label<Checked>`
   background: white;
   height: 40px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 80px;
+  cursor: pointer;
 
   span {
     color: ${props =>
@@ -20,15 +21,18 @@ const Wrapper = styled.div<Checked>`
     font-size: 12px;
   }
 
+  &:hover {
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.15);
+  }
+
   @media (max-width: ${mobileSize}) {
     padding: 0 20px;
   }
 `
 
-const Label = styled.label`
+const CbxWrapper = styled.div`
   display: flex;
   align-items: center;
-  cursor: pointer;
 
   img {
     margin-right: 40px;
@@ -52,11 +56,11 @@ interface PayRowProps {
 export const PayRow: React.FC<PayRowProps> = memo(
   ({ checked, payText, priceText, onChange }) => (
     <Wrapper checked={checked}>
-      <Label>
+      <CbxWrapper>
         <img src={checked ? checkIconSrc : unCheckedIconSrc} alt="check icon" />
         <CheckboxHide type="checkbox" checked={checked} onChange={onChange} />
         <span>{payText}</span>
-      </Label>
+      </CbxWrapper>
       <span>{priceText}</span>
     </Wrapper>
   )

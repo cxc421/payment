@@ -1,20 +1,45 @@
 import React from "react"
-import styled from "styled-components"
+import styled, { css as _css } from "styled-components"
 import errorImgSrc from "../assets/error.png"
 import successImgSrc from "../assets/succes.png"
 import errorCloseBtn from "../assets/icon_Error.svg"
 import successCloseBtn from "../assets/icon_Complete.svg"
+import { mobileSize } from "../constants/device"
 
 type HaveError = { haveError: boolean }
+type HaveShow = { show: boolean }
 
-const Wrapper = styled.div`
+const wrapperNotShowCss = _css`
+  left: 50%;
+  transition-delay: 0s;
+  transform: translate(-50%, calc(100% + 220px));
+  @media (max-width: ${mobileSize}) {
+    width: 100%;
+    height: 196px;
+    left: 0;
+    transform: translate(0, calc(100% + 220px));
+  }
+`
+
+const wrapperShowCss = _css`
+  left: 50%;
+  transition-delay: 0.15s;
+  transform: translate(-50%, 0px);
+  @media (max-width: ${mobileSize}) {
+    width: 100%;
+    height: 196px;
+    left: 0;
+    transform: translate(0, 0);
+  }
+`
+
+const Wrapper = styled.div<HaveShow>`
   width: 414px;
   height: 280px;
   position: absolute;
   bottom: 0;
-  left: 50%;
-  transform: translate(-50%, calc(100% + 220px));
   transition: transform 0.3s;
+  ${props => (props.show ? wrapperShowCss : wrapperNotShowCss)}
 `
 
 const Img = styled.img<HaveError>`
@@ -48,6 +73,10 @@ const Title = styled.h2`
   font-size: 24px;
   font-weight: bold;
   margin-top: 42px;
+
+  @media (max-width: ${mobileSize}) {
+    margin-top: 20px;
+  }
 `
 
 const Paragraph = styled.p`
@@ -58,11 +87,20 @@ const Paragraph = styled.p`
   text-align: center;
   letter-spacing: 1px;
   line-height: 25px;
+
+  @media (max-width: ${mobileSize}) {
+    font-size: 12px;
+    color: rgba(13, 22, 72, 1);
+    line-height: 19px;
+  }
 `
 
 const CloseImg = styled.img`
   margin-top: 22px;
   cursor: pointer;
+  @media (max-width: ${mobileSize}) {
+    margin-top: 20px;
+  }
 `
 
 interface InfoDialogProps {
@@ -76,18 +114,18 @@ export const InfoDialog: React.FC<InfoDialogProps> = ({
   onClose,
   haveError,
 }) => {
-  const wrapperStyle: React.CSSProperties = show
-    ? {
-        transitionDelay: "0.15s",
-        transform: `translate(-50%, 0px)`,
-      }
-    : {
-        transitionDelay: "0s",
-        transform: `translate(-50%, calc(100% + 220px))`,
-      }
+  // const wrapperStyle: React.CSSProperties = show
+  //   ? {
+  //       transitionDelay: "0.15s",
+  //       transform: `translate(-50%, 0px)`,
+  //     }
+  //   : {
+  //       transitionDelay: "0s",
+  //       transform: `translate(-50%, calc(100% + 220px))`,
+  //     }
 
   return (
-    <Wrapper style={wrapperStyle}>
+    <Wrapper show={show}>
       <Dialog haveError={haveError}>
         <Title>{haveError ? "Uh oh…" : "Yeey !"}</Title>
         {haveError ? (
@@ -97,7 +135,7 @@ export const InfoDialog: React.FC<InfoDialogProps> = ({
           </Paragraph>
         ) : (
           <Paragraph
-            style={{ height: 75, display: "flex", alignItems: "center" }}
+            style={{ height: 18, display: "flex", alignItems: "center" }}
           >
             Your payment has success !
           </Paragraph>

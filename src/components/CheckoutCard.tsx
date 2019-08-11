@@ -119,7 +119,10 @@ export class CheckoutCard extends React.PureComponent<
             checked: !payWay.checked,
           }
         }
-        return payWay
+        return {
+          ...payWay,
+          checked: false,
+        }
       }),
     }))
   }
