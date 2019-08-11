@@ -6,12 +6,22 @@ import { mobileSize } from "../constants/device"
 
 const Wrapper = styled.div`
   color: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1;
+  background: #162fe8;
+
+  @media screen and (max-width: ${mobileSize}) {
+    position: static;
+  }
 `
 const HeaderContainer = styled(Container)`
   display: flex;
   align-items: center;
   padding-top: 40px;
-  padding-bottom: 40px;
+  padding-bottom: 61px;
   justify-content: space-between;
 
   @media screen and (max-width: ${mobileSize}) {

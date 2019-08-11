@@ -10,10 +10,9 @@ import { mobileSize } from "../constants/device"
 
 const Content = styled.div`
   position: relative;
-  margin-top: 21px;
-  /* height: calc(100% - 160px); */
+  top: 160px;
   @media (max-width: ${mobileSize}) {
-    margin-top: 0;
+    top: 0;
   }
 `
 

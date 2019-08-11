@@ -14,7 +14,7 @@ const Mask = styled.div<HaveError>`
   width: 100%;
   background: ${props =>
     props.haveError ? "rgba(0, 0, 0, 0.7)" : "rgba(22, 47, 232, 0.7)"};
-  transition: all 0.3s;
+  transition: opacity 0.3s, visibility 0.3s;
 
   @media (max-width: ${mobileSize}) {
     height: 100vh;
