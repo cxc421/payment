@@ -91,17 +91,22 @@ interface SliderState {
   status: SliderStatus
 }
 
-const easeOut = progress => Math.pow(--progress, 5) + 1
+// const easeOut = progress => Math.pow(--progress, 5) + 1
 const easeOutSin = function(t) {
   return Math.sin((Math.PI / 2) * t)
 }
 
 const cardWidth = 248
 const cardGap = 16
+const swipeTimeLimit = 200
+const swipeDistanceLimit = 50
 
 export class Slider extends React.Component<{}, SliderState> {
   private cardsPosList: number[]
   private prevMousePos: number
+  private prevCardIndex: number
+  private startDraggingTime: number
+  private startDraggingPos: number
   private firsCardPosMin: number
   private firstCardPosMax: number
   private animateTargetPos: number
@@ -172,11 +177,14 @@ export class Slider extends React.Component<{}, SliderState> {
   }
 
   handleCardDownEvent = (pageX: number) => {
-    const { status } = this.state
+    const { status, firstCardPosX } = this.state
     if (status !== SliderStatus.Idle) return
 
-    this.setState({ status: SliderStatus.Dragging })
+    this.prevCardIndex = this.getCloestCardIndex(firstCardPosX)
     this.prevMousePos = pageX
+    this.startDraggingTime = performance.now()
+    this.startDraggingPos = pageX
+    this.setState({ status: SliderStatus.Dragging })
   }
 
   handleDocumentMoveEvent = (pageX: number) => {
@@ -203,12 +211,31 @@ export class Slider extends React.Component<{}, SliderState> {
     if (status !== SliderStatus.Dragging) return
 
     const cloestCardIndex = this.getCloestCardIndex(firstCardPosX)
-    const targetPos = this.cardsPosList[cloestCardIndex]
+    let targetPos = this.cardsPosList[cloestCardIndex]
     if (targetPos === firstCardPosX) {
       this.setState({ status: SliderStatus.Idle })
       return
     }
 
+    if (cloestCardIndex === this.prevCardIndex) {
+      const draggingTime = performance.now() - this.startDraggingTime
+      const draggingDistance = this.prevMousePos - this.startDraggingPos
+
+      if (
+        draggingTime < swipeTimeLimit &&
+        Math.abs(draggingDistance) > swipeDistanceLimit
+      ) {
+        if (draggingDistance > 0) {
+          if (cloestCardIndex > 0) {
+            targetPos = this.cardsPosList[cloestCardIndex - 1]
+          }
+        } else {
+          if (cloestCardIndex < this.cardsPosList.length - 1) {
+            targetPos = this.cardsPosList[cloestCardIndex + 1]
+          }
+        }
+      }
+    }
     this.animateStartPos = firstCardPosX
     this.animateTargetPos = targetPos
     this.animateStartTime = performance.now()
