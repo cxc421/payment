@@ -14,29 +14,43 @@ const Wrapper = styled.div`
     transform-origin: center center;
     transform: translateY(3px) scale(1.04);
   }
+  user-select: none;
 `
 
 interface SliderCardProps {
   src: string
   width: number
   offset: number
+  style?: React.CSSProperties
+  onMouseDown: (e: React.MouseEvent) => void
+  onTouchStart: (e: React.TouchEvent) => void
 }
 
 export const SliderCard: React.FC<SliderCardProps> = memo(
-  ({ src, width, offset: offsetX }) => {
+  ({ src, width, offset: offsetX, style = {}, onMouseDown, onTouchStart }) => {
     const maxOffsetY = 39
     let offsetY = 0
     if (Math.abs(offsetX) < width + 16) {
-      offsetY = maxOffsetY - (maxOffsetY * Math.abs(offsetX)) / (width + 18)
+      offsetY = maxOffsetY - (maxOffsetY * Math.abs(offsetX)) / (width + 16)
     }
-    console.log({ offsetX, offsetY })
+    // console.log({ offsetX, offsetY })
     const wrapperStyle: React.CSSProperties = {
       width,
       transform: `translate(${offsetX - width / 2}px, ${-offsetY}px)`,
+      ...style,
+    }
+
+    function onTouchEnd(e: React.TouchEvent) {
+      e.preventDefault()
     }
 
     return (
-      <Wrapper style={wrapperStyle}>
+      <Wrapper
+        style={wrapperStyle}
+        onMouseDown={onMouseDown}
+        onTouchStart={onTouchStart}
+        onTouchEnd={onTouchEnd}
+      >
         <img src={src} alt="card" />
       </Wrapper>
     )
