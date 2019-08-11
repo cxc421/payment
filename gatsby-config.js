@@ -5,6 +5,6 @@
  */
 
 module.exports = {
-  /* Your site config here */
+  pathPrefix: "/payment",
   plugins: [`gatsby-plugin-styled-components`, `gatsby-plugin-typescript`],
 }

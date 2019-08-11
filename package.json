@@ -10,7 +10,9 @@
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
     "start": "npm run develop",
     "serve": "gatsby serve",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\""
+    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\"",
+    "predeploy": "gatsby build --prefix-paths",
+    "deploy": "gh-pages -d public"
   },
   "dependencies": {
     "babel-plugin-styled-components": "^1.10.6",
@@ -25,6 +27,7 @@
     "@types/node": "^12.7.1",
     "@types/react": "^16.8.25",
     "@types/react-dom": "^16.8.5",
+    "gh-pages": "^2.1.1",
     "prettier": "^1.18.2"
   },
   "repository": {
